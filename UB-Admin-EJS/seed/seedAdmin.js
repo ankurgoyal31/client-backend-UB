@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const Admin = require('../models/Admin');
 console.log(process.env.MONGO_URI);
 mongoose.connect(process.env.MONGO_URI);
-
+   
 (async () => {
   const hashed = await bcrypt.hash('1234567', 10);
   await Admin.create({            

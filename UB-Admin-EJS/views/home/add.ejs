@@ -1,0 +1,264 @@
+<h1>Add Our Story</h1>
+
+<form action="/home/add" method="POST" enctype="multipart/form-data">
+
+    <!-- Main Section -->
+    <h3>Main Section</h3>
+    <div class="mb-3">
+        <label class="form-label">Main Title</label>
+        <input type="text" class="form-control" name="title" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Main Content</label>
+        <textarea class="form-control" name="content" rows="5" required></textarea>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Hero Video</label>
+        <input type="file" class="form-control" name="herovideo" accept=".mp4" required>
+    </div>
+
+    <hr>
+
+    <!-- Section 1 -->
+    <!-- <h3 class="mt-4">Side section 1</h3> -->
+    <div class="mb-3">
+        <label class="form-label">Landmarks Authored</label>
+        <input type="text" class="form-control" name="title1"placeholder="60+..">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Completed</label>
+        <input type="text" class="form-control" name="title2"placeholder="40+..">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Lives Transformed</label>
+        <input type="text" class="form-control" name="title3" placeholder="13000+..">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Years of Architectural Stewardship</label>
+        <input type="text" class="form-control" name="title4" placeholder="24+..">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Million Sq.Ft. Of Meticulously Planned Space</label>
+        <input type="text" class="form-control" name="title5" placeholder="35+..">
+    </div>
+
+    <!-- Section 2 -->
+    <!-- <h3 class="mt-4">Side section 2</h3> -->
+
+    <hr>
+
+      <div class="mb-3">
+        <label class="form-label">left Image</label>
+        <input type="file" class="form-control" name="image2">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">middle Title</label>
+        <input type="text" class="form-control" name="title6">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">middle Content 2</label>
+        <textarea class="form-control" name="content2" rows="3"  ></textarea>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">right Image</label>
+        <input type="file" class="form-control" name="image3">
+    </div>
+
+    <hr>
+
+ <!-- Our Featured Developments 1 -->
+    <h6 class="mt-4">Add IS PARADISE</h6>
+
+    <div class="mb-3">
+        <label class="form-label">Title 3</label>
+        <input type="text" class="form-control" name="title9">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Content 3</label>
+        <textarea class="form-control" name="content4" rows="3"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Video</label>
+        <input type="file" class="form-control" name="video4">
+    </div>
+
+
+ <!-- Our Featured Developments 2 -->
+<h6 class="mt-4">UNIQUE GREEN MEADOWS</h6>
+
+    <div class="mb-3">
+        <label class="form-label">Title 3</label>
+        <input type="text" class="form-control" name="title10">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Content 3</label>
+        <textarea class="form-control" name="content5" rows="3"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Video</label>
+        <input type="file" class="form-control" name="video5">
+    </div>
+
+ <!-- Our Featured Developments 3 -->
+
+<h6 class="mt-4">UNIQUE NEW TOWN</h6>
+
+    <div class="mb-3">
+        <label class="form-label">Title 3</label>
+        <input type="text" class="form-control" name="title11">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Content 3</label>
+        <textarea class="form-control" name="content6" rows="3"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Video</label>
+        <input type="file" class="form-control" name="video6">
+    </div>
+
+    <hr>
+
+
+    <!-- <h6 class="mt-4">UNIQUE NEW TOWN</h6> -->
+
+    <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input type="text" class="form-control" name="title11">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Content</label>
+        <textarea class="form-control" name="content7" rows="3"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Video</label>
+        <input type="file" class="form-control" name="video7">
+    </div>
+    <hr>
+
+    <!-- Dynamic Sections -->
+    <h6 class="mt-4">Extra Sections</h6>
+    <div id="dynamicSectionsContainer">
+        <!-- Javascript will inject sections here -->
+    </div>
+    
+    <button type="button" id="addSectionBtn" class="btn btn-info mt-2">
+        <i class="fas fa-plus"></i> Add +
+    </button>
+
+    <!-- Journey Sections -->
+    <h6 class="mt-4">Journey Section</h6>
+    <div id="journeySectionsContainer">
+        <!-- Javascript will inject journey sections here -->
+    </div>
+    
+    <hr>
+    <h6>Awards Section</h6>
+ <div id="AwardSectionsContainer">
+        <!-- Javascript will inject sections here -->
+    </div>
+    <button type="button" id="addAwardBtn" class="btn btn-warning mt-2">
+        <i class="fas fa-plus"></i> Add Award
+    </button>
+
+    <hr>
+
+    <div class="mt-4 mb-5">
+        <button type="submit" class="btn btn-primary">
+            Submit Story
+        </button>
+    </div>
+</form>
+
+<script>
+
+let AwardCount = 0;
+    document.getElementById('addAwardBtn').addEventListener('click', function() {
+        const container = document.getElementById('AwardSectionsContainer');
+        const sectionHtml = `
+            <div class="card p-3 mb-3 border border-info">
+                <div class="d-flex justify-content-between">
+                    <h5>New Extra Section</h5>
+                    <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.parentElement.remove()">Remove</button>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Title</label>
+                    <input type="text" class="form-control" name="awardTitles[]" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">year</label>
+                    <input type="text" class="form-control" name="awardYears[]" placeholder="e.g. 2002..">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Content</label>
+                    <textarea class="form-control" name="awardContents[]" rows="3"></textarea>
+                </div>
+            </div>
+        `;
+        container.insertAdjacentHTML('beforeend', sectionHtml);
+        AwardCount++;
+    });
+
+    let sectionCount = 0;
+    document.getElementById('addSectionBtn').addEventListener('click', function() {
+        const container = document.getElementById('dynamicSectionsContainer');
+        const sectionHtml = `
+            <div class="card p-3 mb-3 border border-info">
+                <div class="d-flex justify-content-between">
+                    <h5>New Extra Section</h5>
+                    <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.parentElement.remove()">Remove</button>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Title</label>
+                    <input type="text" class="form-control" name="dynamicNames[]" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">year</label>
+                    <input type="text" class="form-control" name="dynamicPosts[]" placeholder="e.g. 2002..">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Content</label>
+                    <textarea class="form-control" name="dynamicContents[]" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Image</label>
+                    <input type="file" class="form-control" name="dynamicImage_${sectionCount}" required>
+                </div>
+            </div>
+        `;
+        container.insertAdjacentHTML('beforeend', sectionHtml);
+        sectionCount++;
+    });
+
+    let journeyCount = 0;
+    document.getElementById('addJourneyBtn').addEventListener('click', function() {
+        const container = document.getElementById('journeySectionsContainer');
+        const sectionHtml = `
+            <div class="card p-3 mb-3 border border-warning">
+                <div class="d-flex justify-content-between">
+                    <h5>New Journey</h5>
+                    <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.parentElement.remove()">Remove</button>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Title</label>
+                    <input type="text" class="form-control" name="journeyTitles[]" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Content</label>
+                    <textarea class="form-control" name="journeyContents[]" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Image</label>
+                    <input type="file" class="form-control" name="journeyImage_${journeyCount}" required>
+                </div>
+            </div>
+        `;
+        container.insertAdjacentHTML('beforeend', sectionHtml);
+        journeyCount++;
+    });
+</script>

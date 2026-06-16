@@ -22,11 +22,10 @@ exports.dashboard = async (req, res) => {
       projectCount,
       contactCount,
       csrExists
-    });
+    }); 
 
   } catch (error) {
     console.error("Dashboard Error:", error);
- 
     res.status(500).render('500', {
       layout: 'layout',
       title: 'Server Error',

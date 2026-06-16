@@ -15,12 +15,11 @@ const csrUpload = upload.fields([
 
 router.get('/', (req, res) => {
   res.render('csr_page/add');
-});
+}); 
 
 // POST route
 router.post('/add', csrUpload, async (req, res) => {
   try {
- 
     await CSR.create({
       heroImage: req.files.heroImage?.[0]?.location || '',
       heroTitle: req.body.heroTitle,
@@ -29,7 +28,6 @@ router.post('/add', csrUpload, async (req, res) => {
       sideImage: req.files.sideImage?.[0]?.location || '',
       sideTitle: req.body.sideTitle,
       sideDescription: req.body.sideDescription,
- 
       galleryImage1: req.files.galleryImage1?.[0]?.location || '',
       galleryTitle1: req.body.galleryTitle1,
       galleryDescription1: req.body.galleryDescription1,
@@ -46,9 +44,8 @@ router.post('/add', csrUpload, async (req, res) => {
       galleryTitle4: req.body.galleryTitle4,
       galleryDescription4: req.body.galleryDescription4
     });
-
     res.redirect('/dashboard');
-
+    
   } catch (err) {
     console.log(err);
     res.send(err.message);

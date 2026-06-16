@@ -1,0 +1,53 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h4 class="fw-bold">Manage Story</h4>
+    <!-- <a href="/ourstory/addform" class="btn btn-primary">Add Story</a> -->
+</div>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Count</th>
+      <th>job</th>
+      <th>post</th>
+      <th>Experience</th>
+      <th>Name</th>
+      <th>Cv / Resume</th>
+      <th>Date</th>
+      <th>Action</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <% if (applied && applied.length > 0) { %>
+      <% applied.forEach((story,i) => { %>
+        <tr>
+          <td>
+            <%= i+1 %> 
+          </td>
+                    <td><%= story.job%></td>
+                    <td><%= story.post%></td>
+                    <td><%= story.experience%></td>
+                    <td><%= story.name%></td>
+                  <td><a href="<%= story.cv%>"> Show Cv</a></td>
+                    <td><%= story.createdAt.toDateString()%></td>
+
+           <td>
+
+                <form action="/ourstory/delete/<%= story._id %>?_method=DELETE" 
+                          method="POST" 
+                          class="d-inline">
+                      <button class="btn btn-sm btn-danger"
+                              onclick="return confirm('Delete this project?')">
+                        Delete
+                      </button>
+                    </form>
+          </td>
+        </tr>
+      <% }) %>
+    <% } else { %>
+      <tr>
+        <td colspan="4" class="text-center">No applied found. Please add a story.</td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>

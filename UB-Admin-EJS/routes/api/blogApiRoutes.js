@@ -4,5 +4,4 @@ const blogApiController = require('../../controllers/api/blogApiController');
 
 router.get('/', blogApiController.getAll);
 router.get('/:id', blogApiController.getOne);
-
 module.exports = router;

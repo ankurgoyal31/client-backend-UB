@@ -5,7 +5,7 @@ const {
   priceRanges,
   statusOptions
 } = require('../config/projectConfig');
-
+  
 /* ================= FEATURE SCHEMA ================= */
 const featureSchema = new mongoose.Schema({
   title: String
@@ -16,13 +16,13 @@ const faqSchema = new mongoose.Schema({
   question: String,
   answer: String
 }, { _id: false });
-
+ 
 /* ================= CUSTOM SECTION ================= */
 const customSectionSchema = new mongoose.Schema({
   title: { type: String },
   images: [{ type: String }]
 }, { _id: false });
-
+ 
 /* ================= PROJECT SCHEMA ================= */
 const projectSchema = new mongoose.Schema({
  
@@ -37,7 +37,6 @@ const projectSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-
   address: String,
 
   /* ================= CATEGORY INFO ================= */
@@ -83,7 +82,6 @@ locationMapLink: {
 },
   heroImage2: String,
   heroImage3: String,
-
   logoImage: String,
 
   /* ================= BROCHURE ================= */

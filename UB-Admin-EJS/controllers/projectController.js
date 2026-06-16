@@ -37,8 +37,9 @@ exports.list = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send("Server Error");
-  }
+  } 
 };
+
 
 /* ================= ADD FORM ================= */
 exports.addForm = (req, res) => {
@@ -119,7 +120,7 @@ exports.create = async (req, res) => {
    
     /* ================= CUSTOM SECTIONS ================= */
     let customSections = [];
- 
+    
     if (req.body.customSectionTitle) {
       const titles = Array.isArray(req.body.customSectionTitle)
         ? req.body.customSectionTitle
@@ -185,9 +186,7 @@ exports.create = async (req, res) => {
       faqs,
       customSections
     });
-
     res.redirect('/projects');
-
   } catch (err) {
     console.error(err);
     res.status(500).send("Error Creating Project");
@@ -215,6 +214,7 @@ exports.update = async (req, res) => {
       bedrooms: req.body.bedrooms,
       area: req.body.area,
       reraNumber: req.body.reraNumber,
+      locationMapLink: req.body.locationMapLink,
     };
 
     /*================= FILE UPDATE ================= */
