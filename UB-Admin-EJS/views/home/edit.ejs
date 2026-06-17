@@ -16,7 +16,11 @@
         <label class="form-label">Hero Video</label>
         <input type="file" class="form-control" name="herovideo" accept=".mp4">
         <% if (home_data.herovideo) { %>
-            <small class="text-muted">Current video: <a href="<%= home_data.herovideo %>" target="_blank">View</a></small>
+            <small class="text-muted">
+                  <video width="400" controls>
+    <source src="<%= home_data.herovideo %>" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
         <% } %>
     </div>
 
@@ -53,7 +57,9 @@
         <label class="form-label">left Image</label>
         <input type="file" class="form-control" name="image2">
         <% if (home_data.image2) { %>
-            <small class="text-muted">Current image: <a href="<%= home_data.image2 %>" target="_blank">View</a></small>
+            <small class="text-muted">
+<img src="<%= home_data.image2 %>" alt="Image" width="200">
+            </small>
         <% } %>
     </div>
     <div class="mb-3">
@@ -68,7 +74,9 @@
         <label class="form-label">right Image</label>
         <input type="file" class="form-control" name="image3">
         <% if (home_data.image3) { %>
-            <small class="text-muted">Current image: <a href="<%= home_data.image3 %>" target="_blank">View</a></small>
+            <small class="text-muted">
+<img src="<%= home_data.image3 %>" alt="Image" width="200">
+                </small>
         <% } %>
     </div>
 
@@ -85,14 +93,18 @@
 
 <div class="mb-3">
     <label>Content</label>
-    <textarea class="form-control" name="content5" rows="3"><%= home_data.content5 %></textarea>
+    <textarea class="form-control" name="content4" rows="3"><%= home_data.content4 %></textarea>
 </div>
 
     <div class="mb-3">
         <label class="form-label">Video</label>
         <input type="file" class="form-control" name="video4">
         <% if (home_data.video4) { %>
-            <small class="text-muted">Current video: <a href="<%= home_data.video4 %>" target="_blank">View</a></small>
+            <small class="text-muted">
+<video width="400" controls>
+    <source src="<%= home_data.video4 %>" type="video/mp4">
+    Your browser does not support the video tag.
+</video>            </small>
         <% } %>
     </div>
 
@@ -106,13 +118,17 @@
 
 <div class="mb-3">
     <label>Content</label>
-    <textarea class="form-control" name="content6" rows="3"><%= home_data.content6 %></textarea>
+    <textarea class="form-control" name="content5" rows="3"><%= home_data.content5 %></textarea>
 </div>
     <div class="mb-3">
         <label class="form-label">Video</label>
         <input type="file" class="form-control" name="video5">
         <% if (home_data.video5) { %>
-            <small class="text-muted">Current video: <a href="<%= home_data.video5 %>" target="_blank">View</a></small>
+            <small class="text-muted">
+<video width="400" controls>
+    <source src="<%= home_data.video5 %>" type="video/mp4">
+    Your browser does not support the video tag.
+</video>            </small>
         <% } %>
     </div>
 
@@ -126,13 +142,17 @@
 
 <div class="mb-3">
     <label>Content</label>
-    <textarea class="form-control" name="content7" rows="3"><%= home_data.content7 %></textarea>
+    <textarea class="form-control" name="content6" rows="3"><%= home_data.content6 %></textarea>
 </div>
     <div class="mb-3">
         <label class="form-label">Video</label>
         <input type="file" class="form-control" name="video6">
         <% if (home_data.video6) { %>
-            <small class="text-muted">Current video: <a href="<%= home_data.video6 %>" target="_blank">View</a></small>
+            <small class="text-muted">
+<video width="400" controls>
+    <source src="<%= home_data.video6 %>" type="video/mp4">
+    Your browser does not support the video tag.
+</video>            </small>
         <% } %>
     </div>
 
@@ -144,27 +164,31 @@
     </div>
     <div class="mb-3">
         <label class="form-label">Content</label>
-        <textarea class="form-control" name="content4" rows="3"><%= home_data.content4 %></textarea>
+        <textarea class="form-control" name="content7" rows="3"><%= home_data.content7 %></textarea>
     </div>
 
     <div class="mb-3">
         <label class="form-label">Video</label>
         <input type="file" class="form-control" name="video7">
         <% if (home_data.video7) { %>
-            <small class="text-muted">Current video: <a href="<%= home_data.video7 %>" target="_blank">View</a></small>
+            <small class="text-muted"> 
+<video width="400" controls>
+    <source src="<%= home_data.video7 %>" type="video/mp4">
+    Your browser does not support the video tag.
+</video>                </small>
         <% } %>
     </div>
     
     <hr>
 
     <!-- Dynamic Sections -->
-    <h6 class="mt-4">Extra Sections</h6>
+    <h6 class="mt-4">ADD MILESTONES</h6>
     <div id="dynamicSectionsContainer">
         <% if (home_data.dynamicSections && home_data.dynamicSections.length > 0) { %>
             <% home_data.dynamicSections.forEach((section, index) => { %>
                 <div class="card p-3 mb-3 border border-info">
                     <div class="d-flex justify-content-between">
-                        <h5>Extra Section</h5>
+                        <!-- <h5>Extra Section</h5> -->
                         <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.parentElement.remove()">Remove</button>
                     </div>
                     <div class="mb-3">
@@ -183,7 +207,9 @@
                         <label class="form-label">Image</label>
                         <input type="file" class="form-control" name="dynamicImage_<%= index %>">
                         <% if (section.image) { %>
-                            <small class="text-muted">Current image: <a href="<%= section.image %>" target="_blank">View</a></small>
+                            <small class="text-muted">
+<img src="<%= section.image %>" alt="Image" width="200">
+                            </small>
                         <% } %>
                     </div>
                 </div>
@@ -196,13 +222,13 @@
     </button>
 
     <!-- Journey Sections -->
-    <h6 class="mt-4">Journey Section</h6>
+    <h6 class="mt-4">Add Values</h6>
     <div id="journeySectionsContainer">
         <% if (home_data.journeySections && home_data.journeySections.length > 0) { %>
             <% home_data.journeySections.forEach((section, index) => { %>
                 <div class="card p-3 mb-3 border border-warning">
                     <div class="d-flex justify-content-between">
-                        <h5>Journey Section</h5>
+                        <!-- <h5>Journey Section</h5> -->
                         <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.parentElement.remove()">Remove</button>
                     </div>
                     <div class="mb-3">
@@ -217,7 +243,9 @@
                         <label class="form-label">Image</label>
                         <input type="file" class="form-control" name="journeyImage_<%= index %>">
                         <% if (section.image) { %>
-                            <small class="text-muted">Current image: <a href="<%= section.image %>" target="_blank">View</a></small>
+                            <small class="text-muted">
+<img src="<%= section.image %>" alt="Image" width="200">
+                                </small>
                         <% } %>
                     </div>
                 </div>
@@ -226,7 +254,7 @@
     </div>
     
     <button type="button" id="addJourneyBtn" class="btn btn-warning mt-2">
-        <i class="fas fa-plus"></i> Add Journey +
+        <i class="fas fa-plus"></i> Add +
     </button>
     <hr>
     
@@ -237,7 +265,7 @@
             <% home_data.AwardSections.forEach((section, index) => { %>
                 <div class="card p-3 mb-3 border border-info">
                     <div class="d-flex justify-content-between">
-                        <h5>Award Section</h5>
+                        <!-- <h5>Award Section</h5> -->
                         <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.parentElement.remove()">Remove</button>
                     </div>
                     <div class="mb-3">
@@ -257,7 +285,7 @@
         <% } %>
     </div>
     <button type="button" id="addAwardBtn" class="btn btn-warning mt-2">
-        <i class="fas fa-plus"></i> Add Award
+        <i class="fas fa-plus"></i> Add +
     </button>
 
     <hr>
@@ -276,8 +304,7 @@
         const sectionHtml = `
             <div class="card p-3 mb-3 border border-info">
                 <div class="d-flex justify-content-between">
-                    <h5>New Extra Section</h5>
-                    <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.parentElement.remove()">Remove</button>
+                     <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.parentElement.remove()">Remove</button>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Title</label>
@@ -303,8 +330,7 @@
         const sectionHtml = `
             <div class="card p-3 mb-3 border border-info">
                 <div class="d-flex justify-content-between">
-                    <h5>New Extra Section</h5>
-                    <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.parentElement.remove()">Remove</button>
+                     <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.parentElement.remove()">Remove</button>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Title</label>
@@ -334,7 +360,6 @@
         const sectionHtml = `
             <div class="card p-3 mb-3 border border-warning">
                 <div class="d-flex justify-content-between">
-                    <h5>New Journey</h5>
                     <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.parentElement.remove()">Remove</button>
                 </div>
                 <div class="mb-3">
