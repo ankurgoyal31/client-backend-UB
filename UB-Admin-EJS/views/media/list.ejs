@@ -12,6 +12,7 @@
             <tr>
               <th>#</th>
               <th>Title</th>
+              <th>Description</th>
               <th>Date</th>
               <!-- <th>Date</th> -->
               <th class="text-end">Actions</th>
@@ -23,7 +24,7 @@
                 <tr>
                   <td><%= index + 1 %></td>
                   <td><%= item.title %></td>
-                  <!-- <td><%= item.description %></td> -->
+                  <td><%= item.description %></td>
                   <td><%= item.createdAt.toDateString() %></td>
                   <td class="text-end">
 
