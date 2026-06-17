@@ -1,4 +1,4 @@
-<h1>Add Our Story</h1>
+<h1>Add Home</h1>
 
 <form action="/home/add" method="POST" enctype="multipart/form-data">
 
@@ -128,7 +128,7 @@
 
     <div class="mb-3">
         <label class="form-label">Title</label>
-        <input type="text" class="form-control" name="title8">
+       <input type="text" class="form-control" name="title8">
     </div>
     <div class="mb-3">
         <label class="form-label">Content</label>
@@ -139,10 +139,11 @@
         <label class="form-label">Video</label>
         <input type="file" class="form-control" name="video7">
     </div>
+
     <hr>
 
     <!-- Dynamic Sections -->
-    <h6 class="mt-4">Extra Sections</h6>
+    <h6 class="mt-4">ADD MILESTONES</h6>
     <div id="dynamicSectionsContainer">
         <!-- Javascript will inject sections here -->
     </div>
@@ -152,18 +153,22 @@
     </button>
 
     <!-- Journey Sections -->
-    <h6 class="mt-4">Journey Section</h6>
+    <h6 class="mt-4">Add Value</h6>
     <div id="journeySectionsContainer">
         <!-- Javascript will inject journey sections here -->
     </div>
-    
+
+      <button type="button" id="addJourneyBtn" class="btn btn-warning mt-2">
+        <i class="fas fa-plus"></i> Add +
+    </button>
+
     <hr>
     <h6>Awards Section</h6>
  <div id="AwardSectionsContainer">
         <!-- Javascript will inject sections here -->
     </div>
     <button type="button" id="addAwardBtn" class="btn btn-warning mt-2">
-        <i class="fas fa-plus"></i> Add Award
+        <i class="fas fa-plus"></i> Add +
     </button>
 
     <hr>
@@ -183,8 +188,7 @@ let AwardCount = 0;
         const sectionHtml = `
             <div class="card p-3 mb-3 border border-info">
                 <div class="d-flex justify-content-between">
-                    <h5>New Extra Section</h5>
-                    <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.parentElement.remove()">Remove</button>
+                     <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.parentElement.remove()">Remove</button>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Title</label>
@@ -210,8 +214,7 @@ let AwardCount = 0;
         const sectionHtml = `
             <div class="card p-3 mb-3 border border-info">
                 <div class="d-flex justify-content-between">
-                    <h5>New Extra Section</h5>
-                    <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.parentElement.remove()">Remove</button>
+                     <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.parentElement.remove()">Remove</button>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Title</label>
@@ -235,30 +238,54 @@ let AwardCount = 0;
         sectionCount++;
     });
 
-    let journeyCount = 0;
-    document.getElementById('addJourneyBtn').addEventListener('click', function() {
-        const container = document.getElementById('journeySectionsContainer');
+  let journeyCount = 0;
+
+const addJourneyBtn = document.getElementById("addJourneyBtn");
+const journeyContainer = document.getElementById("journeySectionsContainer");
+
+if (addJourneyBtn && journeyContainer) {
+
+    addJourneyBtn.addEventListener("click", function () {
+
         const sectionHtml = `
             <div class="card p-3 mb-3 border border-warning">
+
                 <div class="d-flex justify-content-between">
-                    <h5>New Journey</h5>
-                    <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.parentElement.remove()">Remove</button>
+                    <button type="button"
+                        class="btn btn-sm btn-danger"
+                        onclick="this.closest('.card').remove()">
+                        Remove
+                    </button>
                 </div>
+
                 <div class="mb-3">
                     <label class="form-label">Title</label>
-                    <input type="text" class="form-control" name="journeyTitles[]" required>
+                    <input type="text"
+                           class="form-control"
+                           name="journeyTitles[]"
+                           required>
                 </div>
+
                 <div class="mb-3">
                     <label class="form-label">Content</label>
-                    <textarea class="form-control" name="journeyContents[]" rows="3"></textarea>
+                    <textarea class="form-control"
+                              name="journeyContents[]"
+                              rows="3"></textarea>
                 </div>
+
                 <div class="mb-3">
                     <label class="form-label">Image</label>
-                    <input type="file" class="form-control" name="journeyImage_${journeyCount}" required>
+                    <input type="file"
+                           class="form-control"
+                           name="journeyImage_${journeyCount}">
                 </div>
+
             </div>
         `;
-        container.insertAdjacentHTML('beforeend', sectionHtml);
+
+        journeyContainer.insertAdjacentHTML("beforeend", sectionHtml);
+
         journeyCount++;
     });
+}
 </script>
