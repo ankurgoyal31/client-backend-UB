@@ -19,12 +19,10 @@ exports.add =async(req,res)=>{
 
 if (req.files) {
     const File = req.files.find(f => f.fieldname === "image");
-    if (File) image = File.location;
+    if (File) image ="/uploads/"+ File.filename;
 }
-
 const newpopup = new popup({ title,  type,   image, location });
         await newpopup.save();
-
           res.redirect("/dashboard")
 
     }catch(err){
@@ -57,7 +55,7 @@ exports.edit = async (req, res) => {
             const File = req.files.find(f => f.fieldname === "image");
 
             if (File) {
-                updateData.image = File.location;
+                updateData.image ="/uploads/"+ File.filename;
             }
         }
 
