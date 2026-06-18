@@ -62,7 +62,11 @@
                         <label class="form-label">Image</label>
                         <input type="file" class="form-control" name="journeyImage_<%= index %>">
                         <% if (section.image) { %>
-                            <small class="text-muted">Current image: <a href="<%= section.image %>" target="_blank">View</a></small>
+<small class="text-muted">
+  <img src="<%= section.image %>"
+       alt="Image"
+       style="width:120px; height:80px; object-fit:cover;">
+</small>
                         <% } %>
                     </div>
                 </div>
@@ -103,7 +107,11 @@
                         <label class="form-label">Image</label>
                         <input type="file" class="form-control" name="dynamicImage_<%= index %>">
                         <% if (section.image) { %>
-                            <small class="text-muted">Current image: <a href="<%= section.image %>" target="_blank">View</a></small>
+                      <small class="text-muted">
+  <img src="<%= section.image %>"
+       alt="Image"
+       style="width:120px; height:80px; object-fit:cover;">
+</small>
                         <% } %>
                     </div>
                 </div>
