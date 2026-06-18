@@ -41,11 +41,11 @@ exports.addForm = (req, res) => {
 ========================= */
 exports.create = async (req, res) => {
   try {
-    const heroImage = req.files && req.files['heroImage'] ? req.files['heroImage'][0].location : null;
-    const main_blog_image = req.files && req.files['main_blog_image'] ? req.files['main_blog_image'][0].location : null;
-    const project_detail_image_1 = req.files && req.files['project_detail_image_1'] ? req.files['project_detail_image_1'][0].location : null;
-    const project_detail_image_2 = req.files && req.files['project_detail_image_2'] ? req.files['project_detail_image_2'][0].location : null;
-    const images = req.files && req.files['images'] ? req.files['images'].map(file => file.location) : [];
+    const heroImage = req.files && req.files['heroImage'] ? "/uploads/"+ req.files['heroImage'][0].filename : null;
+    const main_blog_image = req.files && req.files['main_blog_image'] ?  "/uploads/"+req.files['main_blog_image'][0].filename : null;
+    const project_detail_image_1 = req.files && req.files['project_detail_image_1'] ?  "/uploads/"+req.files['project_detail_image_1'][0].filename : null;
+    const project_detail_image_2 = req.files && req.files['project_detail_image_2'] ?  "/uploads/"+req.files['project_detail_image_2'][0].filename : null;
+    const images = req.files && req.files['images'] ? req.files['images'].map(file => file.filename) : [];
 
     await Blog.create({
       title: req.body.title,
@@ -105,11 +105,11 @@ exports.update = async (req, res) => {
         existingImages = [existingImages];
     }
     
-    const newHeroImage = req.files && req.files['heroImage'] ? req.files['heroImage'][0].location : blog.heroImage;
-    const new_main_blog_image = req.files && req.files['main_blog_image'] ? req.files['main_blog_image'][0].location : blog.main_blog_image;
-    const new_project_detail_image_1 = req.files && req.files['project_detail_image_1'] ? req.files['project_detail_image_1'][0].location : blog.project_detail_image_1;
-    const new_project_detail_image_2 = req.files && req.files['project_detail_image_2'] ? req.files['project_detail_image_2'][0].location : blog.project_detail_image_2;
-    const newImages = req.files && req.files['images'] ? req.files['images'].map(file => file.location) : [];
+    const newHeroImage = req.files && req.files['heroImage'] ?"/uploads/"+ req.files['heroImage'][0].filename : blog.heroImage;
+    const new_main_blog_image = req.files && req.files['main_blog_image'] ?"/uploads/"+ req.files['main_blog_image'][0].filename : blog.main_blog_image;
+    const new_project_detail_image_1 = req.files && req.files['project_detail_image_1'] ?"/uploads/"+ req.files['project_detail_image_1'][0].filename : blog.project_detail_image_1;
+    const new_project_detail_image_2 = req.files && req.files['project_detail_image_2'] ? "/uploads/"+req.files['project_detail_image_2'][0].filename : blog.project_detail_image_2;
+    const newImages = req.files && req.files['images'] ? req.files['images'].map(file => file.filename) : [];
     const updatedImages = [...existingImages, ...newImages];
 
     await Blog.findByIdAndUpdate(req.params.id, {
