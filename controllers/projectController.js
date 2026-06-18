@@ -70,7 +70,7 @@ exports.create = async (req, res) => {
       return res.status(400).send("Hero Image 1 Required");
 
     const getFile = (field) =>
-      req.files[field] ? req.files[field][0].location : '';
+      req.files[field] ? "/uploads/"+req.files[field][0].filename : '';
 
     /* ================= FEATURES ================= */
     const makeArray = (field) => {
@@ -92,7 +92,7 @@ exports.create = async (req, res) => {
 
       highlights = titles.map((title, index) => ({
         title,
-        image: images[index] ? images[index].location : ''
+        image: images[index] ? "/uploads/"+images[index].filename : ''
       }));
     }
 
@@ -116,7 +116,7 @@ exports.create = async (req, res) => {
 
     /* ================= MULTI IMAGE SECTIONS ================= */
     const mapFiles = (field) =>
-      req.files[field] ? req.files[field].map(f => f.location) : [];
+      req.files[field] ? req.files[field].map(f =>"/uploads/"+ f.filename) : [];
    
     /* ================= CUSTOM SECTIONS ================= */
     let customSections = [];
@@ -126,16 +126,41 @@ exports.create = async (req, res) => {
         ? req.body.customSectionTitle
         : [req.body.customSectionTitle];
 
+      const existingImagesList = req.body.existingCustomSectionImages 
+        ? (Array.isArray(req.body.existingCustomSectionImages) ? req.body.existingCustomSectionImages : [req.body.existingCustomSectionImages])
+        : [];
+
+      const newImageCounts = req.body.customSectionNewImageCounts
+        ? (Array.isArray(req.body.customSectionNewImageCounts) ? req.body.customSectionNewImageCounts : [req.body.customSectionNewImageCounts])
+        : [];
+
       const images = req.files['customSectionImages'] || [];
       let imgIndex = 0;
 
-      customSections = titles.map(title => {
+      customSections = titles.map((title, i) => {
         const sectionImages = [];
 
-        // simple grouping (sequential)
-        while (imgIndex < images.length) {
-          sectionImages.push(images[imgIndex].location);
+        // Add existing images (should only be applicable for update, but safe for create too)
+        if (existingImagesList[i]) {
+          sectionImages.push(...existingImagesList[i].split(',').filter(img => img.trim()));
+        }
+
+        // Add new images based on count
+        const count = parseInt(newImageCounts[i] || '0', 10);
+        let added = 0;
+        
+        while (added < count && imgIndex < images.length) {
+          sectionImages.push(images[imgIndex].filename);
           imgIndex++;
+          added++;
+        }
+
+        // If there are still remaining images and this is the last section, append them just in case
+        if (i === titles.length - 1 && imgIndex < images.length) {
+          while (imgIndex < images.length) {
+            sectionImages.push(images[imgIndex].filename);
+            imgIndex++;
+          }
         }
 
         return {
@@ -221,7 +246,7 @@ exports.update = async (req, res) => {
     const updateFile = async (field) => {
       if (req.files[field]) {
         await deleteFromS3(project[field]);
-        updateData[field] = req.files[field][0].location;
+        updateData[field] = "/uploads/"+ req.files[field][0].filename;
       }
     };
 
@@ -256,7 +281,7 @@ for (let field of multiFields) {
   ) {
 
     const newImages = req.files[field].map(
-      f => f.location
+      f => "/uploads/"+ f.filename
     );
 
     updateData[field].push(...newImages);
@@ -286,7 +311,7 @@ if (
       updateData[field][index]
     ) {
 
-      updateData[field][index] = file.location;
+      updateData[field][index] = "/uploads/"+ file.filename;
     }
   });
 }
@@ -317,7 +342,7 @@ if (
       updateData[field][index]
     ) {
 
-      updateData[field][index] = file.location;
+      updateData[field][index] ="/uploads/"+  file.filename;
     }
   });
 }
@@ -370,7 +395,7 @@ if (req.body.deleteImage) {
       highlights = titles.map((title, index) => ({
         title,
         image: images[index]
-          ? images[index].location
+          ? "/uploads/"+ images[index].filename
           : project.highlights[index]
             ? project.highlights[index].image
             : ''
@@ -407,15 +432,38 @@ if (req.body.deleteImage) {
         ? req.body.customSectionTitle
         : [req.body.customSectionTitle];
 
+      const existingImagesList = req.body.existingCustomSectionImages 
+        ? (Array.isArray(req.body.existingCustomSectionImages) ? req.body.existingCustomSectionImages : [req.body.existingCustomSectionImages])
+        : [];
+
+      const newImageCounts = req.body.customSectionNewImageCounts
+        ? (Array.isArray(req.body.customSectionNewImageCounts) ? req.body.customSectionNewImageCounts : [req.body.customSectionNewImageCounts])
+        : [];
+
       const images = req.files['customSectionImages'] || [];
       let imgIndex = 0;
 
-      customSections = titles.map(title => {
+      customSections = titles.map((title, i) => {
         const sectionImages = [];
 
-        while (imgIndex < images.length) {
-          sectionImages.push(images[imgIndex].location);
+        if (existingImagesList[i]) {
+          sectionImages.push(...existingImagesList[i].split(',').filter(img => img.trim()));
+        }
+
+        const count = parseInt(newImageCounts[i] || '0', 10);
+        let added = 0;
+
+        while (added < count && imgIndex < images.length) {
+          sectionImages.push(images[imgIndex].filename);
           imgIndex++;
+          added++;
+        }
+
+        if (i === titles.length - 1 && imgIndex < images.length) {
+          while (imgIndex < images.length) {
+            sectionImages.push(images[imgIndex].filename);
+            imgIndex++;
+          }
         }
 
         return {
