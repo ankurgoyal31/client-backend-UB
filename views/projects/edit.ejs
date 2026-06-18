@@ -320,7 +320,7 @@
 
 <div id="customSectionWrapper">
 
-  <% (project.customSections || []).forEach(sec => { %>
+  <% (project?.customSections || []).forEach(sec => { %>
     <div class="custom-section border p-3 mb-3">
 
       <input type="text"
@@ -328,18 +328,27 @@
         value="<%= sec.title %>"
         class="form-control mb-2">
 
+      <input type="hidden" name="existingCustomSectionImages" value="<%= (sec.images || []).join(',') %>" class="existing-images-input">
+
       <% if(sec.images && sec.images.length){ %>
         <div class="mb-2">
           <% sec.images.forEach(img => { %>
-            <img src="<%= img %>" class="thumb-img w-100">
+            <div class="position-relative mb-2 img-wrapper" style="display:inline-block; margin-right:5px;">
+              <img src="/uploads/<%= img %>" class="thumb-img" style="width:100px;">
+              <button type="button" class="btn btn-danger btn-sm position-absolute delete-custom-img" style="top:5px; right:5px;" data-img="<%= img %>">
+                X
+              </button>
+            </div>
           <% }) %>
         </div>
       <% } %>
 
       <input type="file"
         name="customSectionImages"
-        class="form-control mb-2"
+        class="form-control mb-2 custom-file-input"
         multiple>
+
+      <input type="hidden" name="customSectionNewImageCounts" value="0" class="new-image-count">
 
       <button type="button"
         class="btn btn-danger btn-sm remove-btn">
@@ -536,7 +545,9 @@ function addCustomSection(){
   div.className='custom-section border p-3 mb-3';
   div.innerHTML=`
     <input type="text" name="customSectionTitle" class="form-control mb-2">
-    <input type="file" name="customSectionImages" class="form-control mb-2" multiple>
+    <input type="hidden" name="existingCustomSectionImages" value="" class="existing-images-input">
+    <input type="file" name="customSectionImages" class="form-control mb-2 custom-file-input" multiple>
+    <input type="hidden" name="customSectionNewImageCounts" value="0" class="new-image-count">
     <button type="button" class="btn btn-danger btn-sm remove-btn">Remove Section</button>
   `;
   document.getElementById('customSectionWrapper').appendChild(div);
@@ -545,6 +556,30 @@ function addCustomSection(){
 document.addEventListener("click",function(e){
   if(e.target.classList.contains("remove-btn")){
     e.target.closest('.feature-row,.highlight-row,.faq-row,.custom-section').remove();
+  }
+  if(e.target.classList.contains("delete-custom-img")){
+    const wrapper = e.target.closest('.img-wrapper');
+    const imgToDelete = e.target.dataset.img;
+    const section = e.target.closest('.custom-section');
+    const existingInput = section.querySelector('.existing-images-input');
+    
+    let existingImages = existingInput.value.split(',').filter(i => i);
+    existingImages = existingImages.filter(i => i !== imgToDelete);
+    existingInput.value = existingImages.join(',');
+    
+    wrapper.remove();
+  }
+});
+
+document.addEventListener("change", function(e) {
+  if (e.target.classList.contains("custom-file-input")) {
+    const section = e.target.closest('.custom-section');
+    if (section) {
+      const countInput = section.querySelector('.new-image-count');
+      if (countInput) {
+        countInput.value = e.target.files.length;
+      }
+    }
   }
 });
 
