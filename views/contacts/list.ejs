@@ -1,0 +1,30 @@
+<div class="container-fluid">
+  <h4 class="fw-bold mb-4">Contact Messages</h4>
+
+  <div class="card shadow-sm border-0">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              
+              <th>Name</th>
+              <th>Email</th>
+              <!-- <th>Message</th> -->
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% contacts.forEach((contact,index) => { %>
+              <tr>
+                <td><%= index+1 %></td>
+                <td><%= contact.email %></td>
+                 <td><%= contact.createdAt.toDateString() %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

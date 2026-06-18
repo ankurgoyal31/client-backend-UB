@@ -1,0 +1,59 @@
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-bold">Manage Media</h4>
+    <a href="/media/addform" class="btn btn-primary">Add Media</a>
+  </div>
+
+  <div class="card shadow-sm border-0">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+                            <th>Description</th>
+              <th>Date</th>
+               <!-- <th>Date</th> -->
+              <th class="text-end">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (mediaItems.length > 0) { %>
+              <% mediaItems.forEach((item, index) => { %>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td><%= item.title %></td>
+                  <td><%= item.description %></td>
+                  <td><%= item.createdAt.toDateString() %></td>
+                  <td class="text-end">
+
+                    <a href="/media/edit/<%= item._id %>" 
+                       class="btn btn-sm btn-warning">
+                       Edit
+                    </a>
+
+                    <form action="/media/delete/<%= item._id %>?_method=DELETE" 
+                          method="POST" 
+                          class="d-inline">
+                      <button class="btn btn-sm btn-danger"
+                              onclick="return confirm('Delete this media?')">
+                        Delete
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              <% }) %>
+            <% } else { %>
+              <tr>
+                <td colspan="5" class="text-center text-muted">
+                  No Media Found
+                </td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

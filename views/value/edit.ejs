@@ -1,0 +1,131 @@
+<h1>Edit values</h1>
+
+<form action="/value/edit/<%= values._id %>" method="POST" enctype="multipart/form-data">
+    <!-- Main Section -->
+    <h3>Main Section</h3>
+    <div class="mb-3">
+        <label class="form-label">Main Title</label>
+        <input type="text" class="form-control" name="title" value="<%= values.title %>" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Main Content</label>
+        <textarea class="form-control" name="content" rows="5" required><%= values.content %></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Hero Image</label>
+        <% if (values.heroImage) { %>
+            <div class="mb-2">
+                <img src="<%= values.heroImage %>" alt="Current Hero Image" style="max-width: 200px;">
+            </div>
+        <% } %>
+        <input type="file" class="form-control" name="heroImage">
+        <small class="text-muted">Leave empty to keep the current image.</small>
+    </div>
+
+    <!-- Section 1 -->
+    <!-- <h3 class="mt-4">Section 1</h3> -->
+    <div class="mb-3">
+        <label class="form-label">stand for Title</label>
+        <input type="text" class="form-control" name="title1" value="<%= values.title1 || '' %>">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">stand for Content</label>
+        <textarea class="form-control" name="content1" rows="3"><%= values.content1 || '' %></textarea>
+    </div>
+     
+
+    <!-- Section 2 -->
+    <!-- <h3 class="mt-4">Section</h3> -->
+    <div class="mb-3">
+        <label class="form-label">Intention Title</label>
+        <input type="text" class="form-control" name="title2" value="<%= values.title2 || '' %>">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Intention Content</label>
+        <textarea class="form-control" name="content2" rows="3"><%= values.content2 || '' %></textarea>
+    </div>
+    
+    <!-- Dynamic Sections -->
+    
+
+    <!-- Journey Sections -->
+    <h3 class="mt-4">Side Section</h3>
+    <div id="journeySectionsContainer">
+        <% if (values.Side_Sections && values.Side_Sections.length > 0) { %>
+            <% values.Side_Sections.forEach((section, index) => { %>
+                <div class="card p-3 mb-3 border border-warning">
+                    <div class="d-flex justify-content-between">
+                        <h5>Journey <%= index + 1 %></h5>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.parentElement.remove()">Remove</button>
+                    </div>
+                    <input type="hidden" name="existingJourneyImages[]" value="<%= section.image %>">
+                    <input type="hidden" name="journeyIndices[]" value="<%= index %>">
+                    <div class="mb-3">
+                        <label class="form-label">Title</label>
+                        <input type="text" class="form-control" name="journeyTitles[]" value="<%= section.title %>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Content</label>
+                        <textarea class="form-control" name="journeyContents[]" rows="3"><%= section.content %></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Image</label>
+                        <% if (section.image) { %>
+                            <div class="mb-2">
+                                <img src="<%= section.image %>" alt="Image" style="max-width: 150px;">
+                            </div>
+                        <% } %>
+                        <input type="file" class="form-control" name="journeyImage_<%= index %>">
+                        <small class="text-muted">Leave empty to keep the current image.</small>
+                    </div>
+                </div>
+            <% }) %>
+        <% } %>
+    </div>
+    
+    <button type="button" id="addJourneyBtn" class="btn btn-warning mt-2">
+        <i class="fas fa-plus"></i> Add Journey
+    </button>
+
+    <div class="mt-4 mb-5">
+        <button type="submit" class="btn btn-primary">
+            Update values
+        </button>
+        <a href="/value" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+
+<script>
+    
+
+    let journeyCount = <%= values.Side_Sections ? values.Side_Sections.length : 0 %>;
+    document.getElementById('addJourneyBtn').addEventListener('click', function() {
+        const container = document.getElementById('journeySectionsContainer');
+        const sectionHtml = `
+            <div class="card p-3 mb-3 border border-warning">
+                <div class="d-flex justify-content-between">
+                    <h5>New Journey</h5>
+                    <button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.parentElement.remove()">Remove</button>
+                </div>
+                <input type="hidden" name="existingJourneyImages[]" value="">
+                <input type="hidden" name="journeyIndices[]" value="${journeyCount}">
+                <div class="mb-3">
+                    <label class="form-label">Title</label>
+                    <input type="text" class="form-control" name="journeyTitles[]" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Content</label>
+                    <textarea class="form-control" name="journeyContents[]" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Image</label>
+                    <input type="file" class="form-control" name="journeyImage_${journeyCount}" required>
+                </div>
+            </div>
+        `;
+        container.insertAdjacentHTML('beforeend', sectionHtml);
+        journeyCount++;
+    });
+</script>

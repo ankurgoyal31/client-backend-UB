@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= typeof title !== 'undefined' ? title : "Dashboard" %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="d-flex">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="brand">Admin</div>
+
+        <ul>
+            <li><a href="/dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+            <li><a href="/blogs"><i class="bi bi-journal-text"></i> Blogs</a></li>
+            <li><a href="/projects"><i class="bi bi-folder"></i> Projects</a></li>
+            <li><a href="/CSR"><i class="bi bi-building"></i> Add CSR</a></li>
+            <li><a href="/contacts"><i class="bi bi-envelope"></i> Contacts</a></li>
+            <li><a href="/logout" class="logout"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+            <li><a href="/media" target="_blank" class="logout"><i class="bi bi-globe"></i>Add Media</a></li>
+            <li><a href="/ourstory" target="_blank" class="logout"><i class="bi bi-globe"></i>Add story</a></li>
+            <li><a href="/value" target="_blank" class="logout"><i class="bi bi-globe"></i>Add value</a></li>
+            <li><a href="/impact" target="_blank" class="logout"><i class="bi bi-globe"></i>Add impact</a></li>
+            <li><a href="/career" target="_blank" class="logout"><i class="bi bi-globe"></i>Add Career</a></li>
+            <li><a href="/home" target="_blank" class="logout"><i class="bi bi-globe"></i>Add home</a></li>
+            <li><a href="/apply" target="_blank" class="logout"><i class="bi bi-globe"></i>applied candidate</a></li>
+        </ul>
+    </div>
+
+    <!-- Main -->
+    <div class="main-content">
+        <div class="topbar">
+            <input type="text" class="form-control search-input" placeholder="Search...">
+        </div>
+
+        <div class="content-area">
+            <%- body %>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

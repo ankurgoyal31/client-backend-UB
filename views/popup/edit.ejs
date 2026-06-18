@@ -1,0 +1,45 @@
+<h3 class="mt-4">i am popup</h3>
+<form action='/popup/edit/<%= popup_data._id %>' method="POST" enctype="multipart/form-data">    
+<div class="mb-3">
+    <label class="form-label">Title</label>
+    <input
+        type="text"
+        class="form-control"
+        name="title"
+        value="<%= popup_data ? popup_data.title : '' %>"
+    >
+</div>
+
+   <div class="mb-3">
+    <label class="form-label">Type</label>
+    <input
+        class="form-control"
+        name="type"
+        rows="3" value="<%= popup_data ? popup_data.type : '' %>">
+</div>
+
+<div class="mb-3">
+    <label class="form-label">location</label>
+    <input
+        class="form-control"
+        name="location"
+        rows="4" value="<%= popup_data ? popup_data.location : '' %>">
+</div>
+
+    <div class="mb-3">
+    <label class="form-label">Current Image</label><br>
+
+    <% if (popup_data && popup_data.image) { %>
+        <img src="<%= popup_data.image %>" width="200" class="mb-2">
+    <% } %>
+
+    <input type="file" name="image" class="form-control">
+</div>
+
+    <div class="mt-4 mb-5">
+        <button type="submit" class="btn btn-primary">
+            Update Popup
+        </button>
+    </div>
+
+    </form>

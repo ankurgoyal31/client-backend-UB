@@ -1,0 +1,610 @@
+<!-- import Edit_image_video from '../public/js/edit_image_video.js'; -->
+<style>
+  .thumb-img{
+    height:120px;
+    object-fit:cover;
+    border-radius:6px;
+    border:1px solid #ddd;
+    margin-bottom:8px;
+  }
+</style>
+
+<div class="container-fluid py-4">
+<div class="card shadow-sm border-0">
+<div class="card-header bg-white fw-bold fs-5">
+  Edit Project
+</div>
+
+<div class="card-body">
+
+<form action="/projects/edit/<%= project._id %>?_method=PUT"
+      method="POST"
+      enctype="multipart/form-data">
+
+<!-- ================= BASIC INFO ================= -->
+
+<h5 class="text-primary mb-3">Basic Information</h5>
+
+<div class="row">
+
+  <div class="col-md-6 mb-3">
+    <label>Project Name *</label>
+    <input type="text" name="name"
+      value="<%= project.name %>"
+      class="form-control" required>
+  </div>
+
+  <div class="col-md-6 mb-3">
+    <label>Address</label>
+    <input type="text" name="address"
+      value="<%= project.address %>"
+      class="form-control">
+  </div>
+
+  <div class="col-md-6 mb-3">
+    <label>Category *</label>
+    <select name="category" class="form-control" required>
+      <% config.categories.forEach(cat => { %>
+        <option value="<%= cat %>"
+          <%= project.category === cat ? 'selected' : '' %>>
+          <%= cat %>
+        </option>
+      <% }) %>
+    </select>
+  </div>
+
+  <div class="col-md-6 mb-3">
+    <label>Location (Map Link) *</label>
+    <input type="text"
+      name="location"
+      value="<%= project.location %>"
+      class="form-control">
+  </div>
+
+  <div class="col-md-6 mb-3">
+    <label>Price Range</label>
+    <select name="priceRange" class="form-control">
+      <% config.priceRanges.forEach(price => { %>
+        <option value="<%= price %>"
+          <%= project.priceRange === price ? 'selected' : '' %>>
+          <%= price %>
+        </option>
+      <% }) %>
+    </select>
+  </div>
+
+  <div class="col-md-6 mb-3">
+    <label>Status</label>
+    <select name="status" class="form-control">
+      <% config.statusOptions.forEach(status => { %>
+        <option value="<%= status %>"
+          <%= project.status === status ? 'selected' : '' %>>
+          <%= status %>
+        </option>
+      <% }) %>
+    </select>
+  </div>
+
+  <div class="col-md-6 mb-3">
+    <label>Bedrooms</label>
+    <input type="text" name="bedrooms" value="<%= project.bedrooms %>" class="form-control" placeholder="e.g. 2, 3 BHK">
+  </div>
+
+  <div class="col-md-6 mb-3">
+    <label>Area</label>
+    <input type="text" name="area" value="<%= project.area %>" class="form-control" placeholder="e.g. 1000 sq ft,Acres">
+  </div>
+
+  <div class="col-md-6 mb-3">
+    <label>Rera Number</label>
+    <input type="text" name="reraNumber" value="<%= project.reraNumber %>" class="form-control" placeholder="e.g. Rera-12345">
+  </div>
+
+</div>
+
+<hr>
+
+<div class="mb-3">
+  <label>Google Map Link</label>
+  <input type="text" name="locationMapLink" class="form-control"
+         value="<%= project.locationMapLink %>"
+         placeholder="Paste Google Map link">
+</div>
+
+<hr>
+<!-- ================= HERO ================= -->
+
+<h5 class="text-primary mb-3">Hero Images</h5>
+
+<div class="row">
+
+  <% const heroFields = ['heroImage1','heroImage2','heroImage3']; %>
+
+  <% heroFields.forEach((field,i) => { %>
+    <div class="col-md-4 mb-3">
+      <label>Hero Image <%= i+1 %> <%= i===0?'*':'' %></label>
+
+      <% if(project[field]) { %>
+        <img src="<%= project[field] %>" class="thumb-img w-100">
+      <% } %>
+
+      <!-- <input type="file" name="<%= field %>" class="form-control"> -->
+ <div class="mt-2">
+
+  <label class="form-label fw-bold">
+    EDIT IMAGE
+  </label>
+
+  <input
+    type="file"
+    name="<%= field %>"
+    class="form-control"
+    multiple>
+
+</div>
+
+    </div>
+  <% }) %>
+
+</div>
+<hr>
+
+<!-- <div class="mb-3">
+  <label>Upload Video</label> 
+  <input type="file" name="projectVideo" class="form-control" accept="video/*">
+</div> -->
+
+<h5 class="text-primary mb-3">Project Video</h5>
+
+<div class="mb-3">
+
+  <% if(project.projectVideo){ %>
+    <video width="300" controls class="mb-2">
+      <source src="<%= project.projectVideo %>" type="video/mp4">
+    </video>
+
+  <% } %>
+
+  <label>Edit Video</label>
+
+  <input type="file"
+         name="projectVideo"
+         class="form-control"
+         accept="video/*">
+
+</div>
+
+
+
+<hr>
+
+<hr>
+
+<!-- ================= MULTI IMAGE SECTIONS ================= -->
+
+
+<h5 class="text-primary mb-3">
+  Project Image Sections
+</h5>
+
+<div class="row">
+
+  <% const multiSections = [
+    {label:'Plan', field:'masterPlanImages'},
+    {label:'AMENITIES', field:'floorPlanImages'},
+    // {label:'Facilities Nearby', field:'exclusiveClubImages'},
+    {label:'GALLARY', field:'facilitiesNearbyImages'},
+    // {label:'Construction Update', field:'constructionUpdateImages'}
+  ]; %>
+
+  <% multiSections.forEach(sec => { %>
+
+    <div class="col-md-4 mb-3">
+
+      <label><%= sec.label %></label>
+
+      <% if(project[sec.field] && project[sec.field].length){ %>
+
+<% project[sec.field].forEach((img,index) => { %>
+
+<div class="position-relative mb-2">
+
+  <img
+    src="<%= img %>"
+    class="thumb-img w-100">
+
+ <label
+  class="btn btn-primary btn-sm position-absolute"
+  style="top:10px; right:10px;">
+
+  Edit
+
+  <input
+    type="file"
+    name="replaceImages"
+    data-field="<%= sec.field %>"
+    data-index="<%= index %>"
+    class="d-none replace-image-input">
+
+</label>
+
+<button
+    type="submit"
+    name="deleteImage"
+    value="<%= sec.field %>-<%= index %>"
+    class="btn btn-danger btn-sm position-absolute"
+    style="top:10px; left:10px;">
+
+    Delete
+
+  </button>
+
+
+</div>
+
+<% }) %>
+
+
+      <% } %>
+
+      <!-- <input
+        type="file"
+        name="<%= sec.field %>"
+        class="form-control"
+        multiple> -->
+
+    </div>
+
+  <% })%>
+
+</div>
+
+<hr>
+<!-- plan -->
+
+<div class="mb-3">
+  <label>Plan</label>
+  <div id="masterPlanWrapper"></div>
+  <button type="button" class="btn btn-sm btn-secondary"
+    onclick="addImageField('masterPlanWrapper','masterPlanImages')">
+    + Add Image
+  </button>
+</div>
+
+<!-- FLOOR PLAN -->
+<div class="mb-3">
+  <label>AMENITIES</label>
+  <div id="floorPlanWrapper"></div>
+  <button type="button" class="btn btn-sm btn-secondary"
+    onclick="addImageField('floorPlanWrapper','floorPlanImages')">
+    + Add Image
+  </button>
+</div>
+
+<!-- EXCLUSIVE CLUB -->
+<!-- <div class="mb-3">
+  <label>GALLARY</label>
+  <div id="exclusiveClubWrapper"></div>
+  <button type="button" class="btn btn-sm btn-secondary"
+    onclick="addImageField('exclusiveClubWrapper','exclusiveClubImages')">
+    + Add Image
+  </button>
+</div> -->
+
+<!-- FACILITIES -->
+<div class="mb-3">
+  <label>GALLARY</label>
+  <div id="facilitiesWrapper"></div>
+  <button type="button" class="btn btn-sm btn-secondary"
+    onclick="addImageField('facilitiesWrapper','facilitiesNearbyImages')">
+    + Add Image
+  </button>
+</div>
+
+<!-- CONSTRUCTION -->
+<!-- <div class="mb-3">
+  <label>Construction Update</label>
+  <div id="constructionWrapper"></div>
+  <button type="button" class="btn btn-sm btn-secondary"
+    onclick="addImageField('constructionWrapper','constructionUpdateImages')">
+    + Add Image
+  </button> 
+</div> -->
+ 
+<hr>
+
+
+<!-- ================= CUSTOM SECTIONS ================= -->
+
+<h5 class="text-primary mb-3">Custom Sections</h5>
+
+<div id="customSectionWrapper">
+
+  <% (project.customSections || []).forEach(sec => { %>
+    <div class="custom-section border p-3 mb-3">
+
+      <input type="text"
+        name="customSectionTitle"
+        value="<%= sec.title %>"
+        class="form-control mb-2">
+
+      <% if(sec.images && sec.images.length){ %>
+        <div class="mb-2">
+          <% sec.images.forEach(img => { %>
+            <img src="<%= img %>" class="thumb-img w-100">
+          <% }) %>
+        </div>
+      <% } %>
+
+      <input type="file"
+        name="customSectionImages"
+        class="form-control mb-2"
+        multiple>
+
+      <button type="button"
+        class="btn btn-danger btn-sm remove-btn">
+        Remove Section
+      </button>
+
+    </div>
+  <% }) %>
+
+</div>
+
+<button type="button"
+  class="btn btn-dark btn-sm mb-3"
+  onclick="addCustomSection()">
+  + Add Section
+</button>
+
+<hr>
+
+<!-- ================= FEATURES ================= -->
+
+<% function renderFeatures(title, field, wrapperId){ %>
+
+<h5 class="text-primary mb-3"><%= title %></h5>
+
+<div id="<%= wrapperId %>">
+
+  <% (project[field] || []).forEach(item => { %>
+    <div class="input-group mb-2 feature-row">
+      <input type="text"
+        name="<%= field %>"
+        value="<%= item.title %>"
+        class="form-control">
+      <button type="button" class="btn btn-danger remove-btn">Remove</button>
+    </div>
+  <% }) %>
+
+</div>
+
+<button type="button"
+  class="btn btn-secondary btn-sm mb-3"
+  onclick="addFeature('<%= wrapperId %>','<%= field %>')">
+  + Add
+</button>
+
+<hr>
+
+<% } %>
+
+<%- renderFeatures('Area & Lot','areaAndLot','areaWrapper') %>
+<%- renderFeatures('Interior','interior','interiorWrapper') %>
+<%- renderFeatures('Exterior','exterior','exteriorWrapper') %>
+
+<!-- ================= HIGHLIGHTS ================= -->
+<h5 class="text-primary mb-3">Highlights</h5>
+
+<div id="highlightWrapper">
+
+  <% (project.highlights || []).forEach(h => { %>
+    <div class="row mb-3 highlight-row">
+
+      <div class="col-md-5">
+        <input type="text"
+          name="highlightTitle"
+          value="<%= h.title %>"
+          class="form-control">
+      </div>
+
+      <div class="col-md-5">
+
+        <% if(h.image){ %>
+          <img src="<%= h.image %>" class="thumb-img w-100">
+        <% } %>
+
+        <input type="file"
+          name="highlightImages"
+          class="form-control">
+      </div>
+
+      <div class="col-md-2">
+        <button type="button"
+          class="btn btn-danger w-100 remove-btn">
+          X
+        </button>
+      </div>
+
+    </div>
+  <% }) %>
+
+</div>
+
+<button type="button"
+  class="btn btn-secondary btn-sm mb-3"
+  onclick="addHighlight()">+ Add Highlight</button>
+
+<hr>
+
+<!-- ================= FAQ ================= -->
+
+<h5 class="text-primary mb-3">FAQ</h5>
+
+<div id="faqWrapper">
+
+  <% (project.faqs || []).forEach(f => { %>
+    <div class="faq-row border p-3 mb-3">
+
+      <input type="text"
+        name="faqQuestion"
+        value="<%= f.question %>"
+        class="form-control mb-2">
+
+      <textarea name="faqAnswer"
+        class="form-control mb-2"><%= f.answer %></textarea>
+
+      <button type="button"
+        class="btn btn-danger btn-sm remove-btn">
+        Remove
+      </button>
+
+    </div>
+  <% }) %>
+
+</div>
+
+<button type="button"
+  class="btn btn-secondary btn-sm mb-3"
+  onclick="addFaq()">+ Add FAQ</button>
+
+<hr>
+
+<button type="submit" class="btn btn-primary px-4">
+  Update Project
+</button>
+
+<a href="/projects" class="btn btn-secondary">Cancel</a>
+
+</form>
+</div>
+</div>
+</div>
+
+<script>
+
+ function addImageField(wrapperId, fieldName){
+
+  const div = document.createElement('div');
+
+  div.className = 'mb-2';
+
+  div.innerHTML = `
+    <input
+      type="file"
+      name="${fieldName}"
+      class="form-control"
+      multiple>
+  `;
+
+  document
+    .getElementById(wrapperId)
+    .appendChild(div);
+}
+
+
+function addHighlight(){
+  const div=document.createElement('div');
+  div.className='row mb-3 highlight-row';
+  div.innerHTML=`
+    <div class="col-md-5">
+      <input type="text" name="highlightTitle" class="form-control">
+    </div>
+    <div class="col-md-5">
+      <input type="file" name="highlightImages" class="form-control">
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-danger w-100 remove-btn">X</button>
+    </div>
+  `;
+  document.getElementById('highlightWrapper').appendChild(div);
+}
+
+function addFaq(){
+  const div=document.createElement('div');
+  div.className='faq-row border p-3 mb-3';
+  div.innerHTML=`
+    <input type="text" name="faqQuestion" class="form-control mb-2">
+    <textarea name="faqAnswer" class="form-control mb-2"></textarea>
+    <button type="button" class="btn btn-danger btn-sm remove-btn">Remove</button>
+  `;
+  document.getElementById('faqWrapper').appendChild(div);
+}
+
+function addCustomSection(){
+  const div=document.createElement('div');
+  div.className='custom-section border p-3 mb-3';
+  div.innerHTML=`
+    <input type="text" name="customSectionTitle" class="form-control mb-2">
+    <input type="file" name="customSectionImages" class="form-control mb-2" multiple>
+    <button type="button" class="btn btn-danger btn-sm remove-btn">Remove Section</button>
+  `;
+  document.getElementById('customSectionWrapper').appendChild(div);
+}
+
+document.addEventListener("click",function(e){
+  if(e.target.classList.contains("remove-btn")){
+    e.target.closest('.feature-row,.highlight-row,.faq-row,.custom-section').remove();
+  }
+});
+
+
+
+document.querySelectorAll('.replace-image-input')
+.forEach(input => {
+
+  input.addEventListener('change', function () {
+
+    document
+      .querySelectorAll('.dynamic-replace-index')
+      .forEach(el => el.remove());
+
+    const hidden = document.createElement('input');
+
+    hidden.type = 'hidden';
+
+    hidden.name = 'replaceIndexes';
+
+    hidden.value =
+      `${this.dataset.field}-${this.dataset.index}`;
+
+    hidden.className =
+      'dynamic-replace-index';
+
+    document
+      .querySelector('form')
+      .appendChild(hidden);
+
+  });
+
+});
+
+
+</script>
+<script>
+
+function addFeature(wrapperId, fieldName) {
+
+  const div = document.createElement('div');
+
+  div.className = 'input-group mb-2 feature-row';
+
+  div.innerHTML = `
+    <input
+      type="text"
+      name="${fieldName}"
+      class="form-control">
+
+    <button
+      type="button"
+      class="btn btn-danger remove-btn">
+      Remove
+    </button>
+  `;
+
+  document
+    .getElementById(wrapperId)
+    .appendChild(div);
+}
+
+</script>
