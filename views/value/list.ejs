@@ -25,7 +25,7 @@
           <td><%= story.content.length > 50 ? story.content.substring(0, 50) + '...' : story.content %></td>
           <td>
             <a href="/value/editform/<%= story._id %>" class="btn btn-sm btn-warning">Edit</a>
-               <form action="/ourstory/delete/<%= story._id %>?_method=DELETE" 
+               <form action="/value/delete/<%= story._id %>?_method=DELETE" 
                           method="POST" 
                           class="d-inline">
                       <button class="btn btn-sm btn-danger"
