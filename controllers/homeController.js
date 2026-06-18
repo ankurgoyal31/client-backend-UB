@@ -31,28 +31,28 @@ let herovideo = null,
 
 if (req.files) {
     const heroFile = req.files.find(f => f.fieldname === "herovideo");
-    if (heroFile) herovideo = heroFile.location;
+    if (heroFile) herovideo ="/uploads/"+ heroFile.filename;
 
     const file1 = req.files.find(f => f.fieldname === "image1");
-    if (file1) image1 = file1.location;
+    if (file1) image1 = "/uploads/"+file1.filename;
 
     const file2 = req.files.find(f => f.fieldname === "image2");
-    if (file2) image2 = file2.location;
+    if (file2) image2 = "/uploads/"+file2.filename;
 
     const file3 = req.files.find(f => f.fieldname === "image3");
-    if (file3) image3 = file3.location;
+    if (file3) image3 = "/uploads/"+file3.filename;
 
     const file4 = req.files.find(f => f.fieldname === "video4");
-    if (file4) video4 = file4.location;
+    if (file4) video4 ="/uploads/"+ file4.filename;
 
     const file5 = req.files.find(f => f.fieldname === "video5");
-    if (file5) video5 = file5.location;
+    if (file5) video5 = "/uploads/"+file5.filename;
 
     const file6 = req.files.find(f => f.fieldname === "video6");
-    if (file6) video6 = file6.location;
+    if (file6) video6 = "/uploads/"+file6.filename;
 
     const file7 = req.files.find(f => f.fieldname === "video7");
-    if (file7) video7 = file7.location;
+    if (file7) video7 = "/uploads/"+file7.filename;
 
 }
         const dynamicSections = [];
@@ -65,7 +65,7 @@ if (req.files) {
                 let img = null;
                 if (req.files) {
                     const f = req.files.find(f => f.fieldname === `dynamicImage_${i}`);
-                    if (f) img = f.location;
+                    if (f) img = "/uploads/"+f.filename;
                 }
                 dynamicSections.push({
                     name: names[i],
@@ -85,7 +85,7 @@ if (req.files) {
                 let img = null;
                 if (req.files) {
                     const f = req.files.find(f => f.fieldname === `journeyImage_${i}`);
-                    if (f) img = f.location;
+                    if (f) img = "/uploads/"+f.filename;
                 }
                 journeySections.push({
                     title: jTitles[i],
@@ -181,21 +181,21 @@ exports.edit = async (req, res) => {
 
         if (req.files) {
             const heroFile = req.files.find(f => f.fieldname === 'herovideo');
-            if (heroFile) updateData.herovideo = heroFile.location;
+            if (heroFile) updateData.herovideo = "/uploads/"+ heroFile.filename;
             const file1 = req.files.find(f => f.fieldname === 'image1');
-            if (file1) updateData.image1 = file1.location;
+            if (file1) updateData.image1 = "/uploads/"+file1.filename;
             const file2 = req.files.find(f => f.fieldname === 'image2');
-            if (file2) updateData.image2 = file2.location;
+            if (file2) updateData.image2 = "/uploads/"+file2.filename;
             const file3 = req.files.find(f => f.fieldname === 'image3');
-            if (file3) updateData.image3 = file3.location;
+            if (file3) updateData.image3 ="/uploads/"+ file3.filename;
             const file4 = req.files.find(f => f.fieldname === 'video4');
-            if (file4) updateData.video4 = file4.location;
+            if (file4) updateData.video4 = "/uploads/"+file4.filename;
             const file5 = req.files.find(f => f.fieldname === 'video5');
-            if (file5) updateData.video5 = file5.location;
+            if (file5) updateData.video5 = "/uploads/"+file5.filename;
             const file6 = req.files.find(f => f.fieldname === 'video6');
-            if (file6) updateData.video6 = file6.location;
+            if (file6) updateData.video6 ="/uploads/"+ file6.filename;
             const file7 = req.files.find(f => f.fieldname === 'video7');
-            if (file7) updateData.video7 = file7.location;
+            if (file7) updateData.video7 = "/uploads/"+file7.filename;
         }
 
         const dynamicSections = [];
@@ -208,7 +208,7 @@ exports.edit = async (req, res) => {
                 let img = existingHome.dynamicSections && existingHome.dynamicSections[i] ? existingHome.dynamicSections[i].image : null;
                 if (req.files) {
                     const f = req.files.find(f => f.fieldname === `dynamicImage_${i}`);
-                    if (f) img = f.location;
+                    if (f) img = "/uploads/"+f.filename;
                 }
                 dynamicSections.push({
                     name: names[i],
@@ -231,7 +231,7 @@ exports.edit = async (req, res) => {
                 let img = existingHome.journeySections && existingHome.journeySections[i] ? existingHome.journeySections[i].image : null;
                 if (req.files) {
                     const f = req.files.find(f => f.fieldname === `journeyImage_${i}`);
-                    if (f) img = f.location;
+                    if (f) img ="/uploads/"+ f.filename;
                 }
                 journeySections.push({
                     title: jTitles[i],
