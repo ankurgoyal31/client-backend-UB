@@ -18,7 +18,7 @@ exports.create = async (req, res) => {
     try {
         console.log("Create Media Request Body:", req.body);
         console.log("Create Media Files:", req.files);
-        const mediaUrl =req.files && req.files.mediaFile? req.files.mediaFile[0].location: null;
+        const mediaUrl =req.files && req.files.mediaFile? "/uploads/"+req.files.mediaFile[0].filename: null;
         await media.create({ category: req.body.category,title: req.body.title, description: req.body.description, url: mediaUrl });
         res.redirect('/media/list');
     } catch (error) {
@@ -65,7 +65,7 @@ exports.update = async (req, res) => {
         };
         
         if (req.files && req.files.mediaFile) {
-            updateData.url = req.files.mediaFile[0].location;
+            updateData.url = "/uploads/"+req.files.mediaFile[0].filename;
         }
         await media.findByIdAndUpdate(req.params.id, updateData);
         res.redirect('/media/list');
