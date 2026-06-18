@@ -9,4 +9,5 @@ router.get("/add",isAuthenticated,valueController.addForm)
 router.post("/add_data",isAuthenticated,upload.any(),valueController.add_data);
 router.post("/edit/:id",isAuthenticated,upload.any(),valueController.edit)
 router.get("/editform/:id",isAuthenticated,valueController.editForm)
+router.delete("/delete/:id",isAuthenticated,valueController.delete)
 module.exports = router;    
