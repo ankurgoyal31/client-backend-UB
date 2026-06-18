@@ -173,3 +173,14 @@ exports.edit = async (req, res) => {
         res.status(500).send("Server Error");
     }
 }
+
+
+
+exports.delete =async (req,res)=>{
+    try{
+        await value.findByIdAndDelete(req.params.id);
+        res.redirect("/value")
+    }catch(err){
+        console.log("error created",err)
+    }
+}
