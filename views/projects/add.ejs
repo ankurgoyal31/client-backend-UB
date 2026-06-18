@@ -309,36 +309,29 @@ function addImageField(wrapperId, fieldName) {
 /* ================= CUSTOM SECTION ================= */
 function addSection() {
   const div = document.createElement('div');
-  div.classList.add('border','p-3','mb-3');
+  div.classList.add('custom-section', 'border','p-3','mb-3');
 
   div.innerHTML = `
     <input type="text" name="customSectionTitle" class="form-control mb-2" placeholder="Section Title">
-
-    <div class="custom-img-wrapper"></div>
-
-    <button type="button"
-      class="btn btn-sm btn-secondary mb-2"
-      onclick="addImageToCustom(this)">
-      + Add Image
-    </button>
-
+    <input type="file" name="customSectionImages" class="form-control mb-2 custom-file-input" multiple>
+    <input type="hidden" name="customSectionNewImageCounts" value="0" class="new-image-count">
     <button type="button" class="btn btn-danger btn-sm remove-btn">Remove Section</button>
   `;
 
   document.getElementById('customSectionWrapper').appendChild(div);
 }
 
-/* custom section images */
-function addImageToCustom(btn){
-  const wrapper = btn.parentElement.querySelector('.custom-img-wrapper');
-
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.name = 'customSectionImages';
-  input.classList.add('form-control','mb-2');
-
-  wrapper.appendChild(input);
-}
+document.addEventListener("change", function(e) {
+  if (e.target.classList.contains("custom-file-input")) {
+    const section = e.target.closest('.custom-section');
+    if (section) {
+      const countInput = section.querySelector('.new-image-count');
+      if (countInput) {
+        countInput.value = e.target.files.length;
+      }
+    }
+  }
+});
 
 /* ================= FEATURES ================= */
 function addFeature(wrapperId, fieldName) {
