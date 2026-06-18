@@ -1,5 +1,6 @@
 const { render } = require("ejs")
-const value = require("../models/value")
+const value = require("../models/value");
+const popup = require("../models/popup");
 
 exports.list = async (req, res) => {
     try {
@@ -22,13 +23,13 @@ exports.add_data = async (req, res) => {
         let heroImage = null, image1 = null, image2 = null, image3 = null;
         if (req.files) {
             const heroFile = req.files.find(f => f.fieldname === 'heroImage');
-            if (heroFile) heroImage = heroFile.location;
+            if (heroFile) heroImage ="/uploads/"+ heroFile.filename;
             const file1 = req.files.find(f => f.fieldname === 'image1');
-            if (file1) image1 = file1.location;
+            if (file1) image1 = "/uploads/"+file1.filename;
             const file2 = req.files.find(f => f.fieldname === 'image2');
-            if (file2) image2 = file2.location;
+            if (file2) image2 = "/uploads/"+file2.filename;
             const file3 = req.files.find(f => f.fieldname === 'image3');
-            if (file3) image3 = file3.location;
+            if (file3) image3 = "/uploads/"+file3.filename;
         }
 
         const dynamicSections = [];
@@ -41,7 +42,7 @@ exports.add_data = async (req, res) => {
                 let img = null;
                 if (req.files) {
                     const f = req.files.find(f => f.fieldname === `dynamicImage_${i}`);
-                    if (f) img = f.location;
+                    if (f) img = "/uploads/"+f.filename;
                 }
                 dynamicSections.push({
                     name: names[i],
@@ -61,7 +62,7 @@ exports.add_data = async (req, res) => {
                 let img = null;
                 if (req.files) {
                     const f = req.files.find(f => f.fieldname === `journeyImage_${i}`);
-                    if (f) img = f.location;
+                    if (f) img ="/uploads/"+ f.filename;
                 }
                 Side_Sections.push({
                     title: jTitles[i],
@@ -108,13 +109,13 @@ exports.edit = async (req, res) => {
 
         if (req.files) {
             const heroFile = req.files.find(f => f.fieldname === 'heroImage');
-            if (heroFile) updateData.heroImage = heroFile.location;
+            if (heroFile) updateData.heroImage ="/uploads/"+ heroFile.filename;
             const file1 = req.files.find(f => f.fieldname === 'image1');
-            if (file1) updateData.image1 = file1.location;
+            if (file1) updateData.image1 = "/uploads/"+file1.filename;
             const file2 = req.files.find(f => f.fieldname === 'image2');
-            if (file2) updateData.image2 = file2.location;
+            if (file2) updateData.image2 = "/uploads/"+file2.filename;
             const file3 = req.files.find(f => f.fieldname === 'image3');
-            if (file3) updateData.image3 = file3.location;
+            if (file3) updateData.image3 = "/uploads/"+file3.filename;
         }
 
         const dynamicSections = [];
@@ -130,7 +131,7 @@ exports.edit = async (req, res) => {
                 let img = existingImages[i] || null;
                 if (req.files) {
                     const f = req.files.find(f => f.fieldname === `dynamicImage_${i}`);
-                    if (f) img = f.location;
+                    if (f) img = "/uploads/"+f.filename;
                 }
                 dynamicSections.push({
                     name: names[i],
@@ -155,7 +156,7 @@ exports.edit = async (req, res) => {
                 let img = jExistingImages[i] || null;
                 if (req.files) {
                     const f = req.files.find(f => f.fieldname === `journeyImage_${i}`);
-                    if (f) img = f.location;
+                    if (f) img ="/uploads/"+ f.filename;
                 }
                 Side_Sections.push({
                     title: jTitles[i],
@@ -164,7 +165,7 @@ exports.edit = async (req, res) => {
                 });
             }
         }
-        
+
         updateData.Side_Sections = Side_Sections;
         await value.findByIdAndUpdate(req.params.id, updateData);
         res.redirect("/value");
@@ -173,7 +174,6 @@ exports.edit = async (req, res) => {
         res.status(500).send("Server Error");
     }
 }
-
 
 
 exports.delete =async (req,res)=>{
