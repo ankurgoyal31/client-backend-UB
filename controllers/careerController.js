@@ -17,18 +17,20 @@ exports.addForm = (req,res)=>{
 
 exports.add_data = async (req, res) => {
     try {
+        console.log(req.files);
+console.log(JSON.stringify(req.files, null, 2));
         const { title, content, title1, content1, title2, content2, title3, content3,title4, content4,content5,content6,content7,content8,content9 } = req.body;
         
         let heroImage = null, image1 = null, image2 = null, image3 = null;
         if (req.files) {
             const heroFile = req.files.find(f => f.fieldname === 'heroImage');
-            if (heroFile) heroImage = heroFile.location;
+            if (heroFile) heroImage = "/uploads/"+heroFile.filename;
             const file1 = req.files.find(f => f.fieldname === 'image1');
-            if (file1) image1 = file1.location;
+            if (file1) image1 = "/uploads/"+file1.filename;
             const file2 = req.files.find(f => f.fieldname === 'image2');
-            if (file2) image2 = file2.location;
+            if (file2) image2 = "/uploads/"+file2.filename;
             const file3 = req.files.find(f => f.fieldname === 'image3');
-            if (file3) image3 = file3.location;
+            if (file3) image3 = "/uploads/"+file3.filename;
         }
 
         const dynamicSections = [];
@@ -41,7 +43,7 @@ exports.add_data = async (req, res) => {
                 let img = null;
                 if (req.files) {
                     const f = req.files.find(f => f.fieldname === `dynamicImage_${i}`);
-                    if (f) img = f.location;
+                    if (f) img = "/uploads/"+f.filename;
                 }
                 dynamicSections.push({
                     name: names[i],
@@ -62,7 +64,7 @@ exports.add_data = async (req, res) => {
                 let img = null;
                 if (req.files) {
                     const f = req.files.find(f => f.fieldname === `journeyImage_${i}`);
-                    if (f) img = f.location;
+                    if (f) img ="/uploads/"+ f.filename;
                 }
                 Side_Sections.push({
                     title: jTitles[i],
@@ -113,7 +115,7 @@ exports.edit_data = async (req, res) => {
 
         if (req.files) {
             const heroFile = req.files.find(f => f.fieldname === 'heroImage');
-            if (heroFile) heroImage = heroFile.location;
+            if (heroFile) heroImage ="/uploads/"+ heroFile.filename;
         }
 
         const dynamicSections = [];
@@ -126,7 +128,7 @@ exports.edit_data = async (req, res) => {
                 let img = existingCareer.dynamicSections && existingCareer.dynamicSections[i] ? existingCareer.dynamicSections[i].image : null;
                 if (req.files) {
                     const f = req.files.find(f => f.fieldname === `dynamicImage_${i}`);
-                    if (f) img = f.location;
+                    if (f) img ="/uploads/"+ f.filename;
                 }
                 dynamicSections.push({
                     name: names[i],
@@ -151,7 +153,7 @@ exports.edit_data = async (req, res) => {
                 let img = existingCareer.Side_Sections && existingCareer.Side_Sections[i] ? existingCareer.Side_Sections[i].image : null;
                 if (req.files) {
                     const f = req.files.find(f => f.fieldname === `journeyImage_${i}`);
-                    if (f) img = f.location;
+                    if (f) img ="/uploads/"+ f.filename;
                 }
                 Side_Sections.push({
                     title: jTitles[i],
