@@ -19,7 +19,7 @@ exports.add =async(req,res)=>{
 
 if (req.files) {
     const File = req.files.find(f => f.fieldname === "image");
-    if (File) image ="/uploads/"+ File.filename;
+    if (File) image ="https://client-backend-ub.onrender.com/uploads/"+ File.filename;
 }
 const newpopup = new popup({ title,  type,   image, location });
         await newpopup.save();
@@ -55,7 +55,7 @@ exports.edit = async (req, res) => {
             const File = req.files.find(f => f.fieldname === "image");
 
             if (File) {
-                updateData.image ="/uploads/"+ File.filename;
+                updateData.image ="https://client-backend-ub.onrender.com/uploads/"+ File.filename;
             }
         }
 
