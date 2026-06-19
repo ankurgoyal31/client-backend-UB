@@ -10,3 +10,12 @@ exports.list = async (req, res) => {
         res.status(500).send("Server Error");
     }
 }
+
+exports.delete =async (req,res)=>{
+    try{
+        await apply.findByIdAndDelete(req.params.id);
+        res.redirect("/apply")
+    }catch(err){
+        console.log("error created",err)
+    }
+}    
