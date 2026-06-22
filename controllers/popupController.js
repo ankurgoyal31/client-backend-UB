@@ -72,3 +72,13 @@ exports.edit = async (req, res) => {
         res.status(500).send("Server Error");
     }
 };
+
+
+exports.delete =async (req,res)=>{
+    try{
+        await popup.deleteOne({});
+        res.redirect("/dashboard")
+    }catch(err){
+        console.log("error created",err)
+    }
+}
