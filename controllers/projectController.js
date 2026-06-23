@@ -70,7 +70,7 @@ exports.create = async (req, res) => {
       return res.status(400).send("Hero Image 1 Required");
 
     const getFile = (field) =>
-      req.files[field] ? "/uploads/"+req.files[field][0].filename : '';
+      req.files[field] ? "https://client-backend-ub.onrender.com/uploads/"+req.files[field][0].filename : '';
       
     /* ================= FEATURES ================= */
     const makeArray = (field) => {
@@ -92,7 +92,7 @@ exports.create = async (req, res) => {
 
       highlights = titles.map((title, index) => ({
         title,
-        image: images[index] ? "/uploads/"+images[index].filename : ''
+        image: images[index] ? "https://client-backend-ub.onrender.com/uploads/"+images[index].filename : ''
       }));
     }
 
@@ -116,7 +116,7 @@ exports.create = async (req, res) => {
 
     /* ================= MULTI IMAGE SECTIONS ================= */
     const mapFiles = (field) =>
-      req.files[field] ? req.files[field].map(f =>"/uploads/"+ f.filename) : [];
+      req.files[field] ? req.files[field].map(f =>"https://client-backend-ub.onrender.com/uploads/"+ f.filename) : [];
      
     /* ================= CUSTOM SECTIONS ================= */
     let customSections = [];
@@ -252,7 +252,7 @@ exports.update = async (req, res) => {
     const updateFile = async (field) => {
       if (req.files[field]) {
         await deleteFromS3(project[field]);
-        updateData[field] = "/uploads/"+ req.files[field][0].filename;
+        updateData[field] = "https://client-backend-ub.onrender.com/uploads/"+ req.files[field][0].filename;
       }
     };
 
@@ -264,7 +264,7 @@ exports.update = async (req, res) => {
 
     if (req.files['image13']) {
       await deleteFromS3(project.Side_image);
-      updateData.Side_image = "/uploads/"+ req.files['image13'][0].filename;
+      updateData.Side_image = "https://client-backend-ub.onrender.com/uploads/"+ req.files['image13'][0].filename;
     }
 
 /*================= MULTI IMAGE UPDATE ================= */
@@ -292,7 +292,7 @@ for (let field of multiFields) {
   ) {
 
     const newImages = req.files[field].map(
-      f => "/uploads/"+ f.filename
+      f => "https://client-backend-ub.onrender.com/uploads/"+ f.filename
     );
 
     updateData[field].push(...newImages);
@@ -322,7 +322,7 @@ if (
       updateData[field][index]
     ) {
 
-      updateData[field][index] = "/uploads/"+ file.filename;
+      updateData[field][index] = "https://client-backend-ub.onrender.com/uploads/"+ file.filename;
     }
   });
 }
@@ -353,7 +353,7 @@ if (
       updateData[field][index]
     ) {
 
-      updateData[field][index] ="/uploads/"+  file.filename;
+      updateData[field][index] ="https://client-backend-ub.onrender.com/uploads/"+  file.filename;
     }
   });
 }
@@ -406,7 +406,7 @@ if (req.body.deleteImage) {
       highlights = titles.map((title, index) => ({
         title,
         image: images[index]
-          ? "/uploads/"+ images[index].filename
+          ? "https://client-backend-ub.onrender.com/uploads/"+ images[index].filename
           : project.highlights[index]
             ? project.highlights[index].image
             : ''
