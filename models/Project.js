@@ -77,6 +77,11 @@ const projectSchema = new mongoose.Schema({
     type: String,
     required: true
   }, 
+
+   title13:String,
+  content13:String,
+  Side_image:String,
+  
 locationMapLink: {
   type: String
 },
