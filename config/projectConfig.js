@@ -6,7 +6,8 @@ const categories = [
   "RESIDENTIAL",
   "COMMERCIAL",
   "HOSPITALITY",
-  "PLOTTING TOWNSHIP"
+  "PLOTTING TOWNSHIP",
+   "Unique Shree"
 ];
 
 const locations = [
