@@ -14,6 +14,7 @@ const projectUpload = upload.fields([
   { name: 'logoImage', maxCount: 1 }, 
   { name: 'brochureFile', maxCount: 1},
   { name: 'aboutImage', maxCount: 1 },
+   {name:'image13',maxCount:1},
   /* ================= MULTI IMAGE SECTIONS ================= */
   { name: 'masterPlanImages', maxCount: 50 },
   { name: 'floorPlanImages', maxCount: 50 },
