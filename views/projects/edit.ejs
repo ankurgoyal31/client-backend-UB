@@ -104,6 +104,29 @@
 
 <hr>
 
+
+<div class="mb-3">
+  <label class="form-label">Name</label>
+  <input type="text" class="form-control" name="title13" value="<%= project.title13 || '' %>">
+</div>
+<div class="mb-3">
+  <label class="form-label">Content</label>
+  <textarea class="form-control" name="content13" rows="3"><%= project.content13 || '' %></textarea>
+</div>
+<div class="mb-3">
+  <label class="form-label">Image</label>
+  <% if(project.Side_image) { %>
+    <div class="mb-2">
+      <img src="<%= project.Side_image %>" class="thumb-img" style="width: 150px;">
+    </div>
+  <% } %>
+  <input type="file" class="form-control" name="image13">
+</div>
+
+
+<hr>
+
+
 <div class="mb-3">
   <label>Google Map Link</label>
   <input type="text" name="locationMapLink" class="form-control"
